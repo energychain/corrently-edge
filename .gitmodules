@@ -1,0 +1,3 @@
+[submodule "corrently-current"]
+	path = corrently-current
+	url = git@github.com:energychain/corrently-current.git
