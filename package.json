@@ -1,6 +1,6 @@
 {
   "name": "corrently-edge",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Edge Server for small systems (like RPi)",
   "main": "index.js",
   "scripts": {

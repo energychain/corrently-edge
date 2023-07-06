@@ -19,7 +19,6 @@ mqttbroker.listen(mqttport, function () {
 
 
 var nrapp = express();
-var app = express();
 nrapp.use("/",express.static("./corrently-current/views/"));
 
 var nrserver = http.createServer(nrapp);
@@ -35,16 +34,12 @@ var mainsettings = {
 
 RED.init(nrserver,mainsettings);
 
-
-var webserver = http.createServer(app);
-
 // Serve the editor UI from /red
 nrapp.use(mainsettings.httpAdminRoot,RED.httpAdmin);
 
 // Serve the http nodes UI from /api
 nrapp.use(mainsettings.httpNodeRoot,RED.httpNode);
 
-webserver.listen(8001);
 nrserver.listen(1880);
 
 /* Init Middleware for Browser based UI */
@@ -102,4 +97,6 @@ mqttedge.on('connect', function () {
         connectBridge(_connectionOptions);
     }
     
-})
+});
+
+console.log("Corrently Edge Served on http://localhost:1880/?middleware=edge");
