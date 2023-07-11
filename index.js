@@ -81,10 +81,14 @@ mqttedge.on('connect', function () {
         } else {
             if(mqttbridge !== null) {
                 if(_connectionOptions !== null) {
-                    _connectionOptions.basepath="/corrently";
-
-                    if(typeof _connectionOptions.basepath !== 'undefined') {
-                        topic = _connectionOptions.basepath + topic;
+                    console.log(_connectionOptions);
+                    // _connectionOptions.basePath="/corrently";
+                    payload = payload.toString();
+                    if (_connectionOptions.basePath.endsWith("#")) {
+                        _connectionOptions.basePath = _connectionOptions.basePath.slice(0, -1);
+                      }
+                    if(typeof _connectionOptions.basePath !== 'undefined') {
+                        topic = _connectionOptions.basePath + topic;
                     }
                     mqttbridge.publish(topic, payload);
                 }
