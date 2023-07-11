@@ -9,7 +9,7 @@ Edge Server for small systems (like RPi)
 
 ## Usage
 ```
-noder index.js
+node index.js
 ```
 
 Point browser to: http://localhost:1880/?middleware=edge
