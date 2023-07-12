@@ -1,4 +1,5 @@
 const mqtt = require('mqtt');
+const mqttport = 1883;
 
 const mqttedge = mqtt.connect("mqtt://localhost:"+mqttport);
 let  mqttbridge = null;
