@@ -1,4 +1,6 @@
 const mqtt = require('mqtt');
+const fs = require("fs");
+
 const mqttport = 1883;
 
 const mqttedge = mqtt.connect("mqtt://localhost:"+mqttport);
