@@ -1,10 +1,11 @@
 {
   "name": "corrently-edge",
-  "version": "0.0.2",
+  "version": "0.0.54",
   "description": "Edge Server for small systems (like RPi)",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node start.js",
+    "stop": "node stop.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "STROMDAO GmbH <dev@stromdao.com>",
