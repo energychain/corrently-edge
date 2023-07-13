@@ -1,4 +1,3 @@
-
 const http = require('http');
 const express = require("express");
 const RED = require("node-red");
@@ -30,5 +29,4 @@ nrapp.use(mainsettings.httpAdminRoot,RED.httpAdmin);
 nrapp.use(mainsettings.httpNodeRoot,RED.httpNode);
 
 nrserver.listen(1880);
-
 RED.start();
