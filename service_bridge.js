@@ -27,9 +27,23 @@ mqttedge.on('connect', function () {
             _connectionOptions = JSON.parse(payload.toString());
             fs.writeFileSync("./runtime/bridge.json",JSON.stringify(_connectionOptions));
             connectBridge(_connectionOptions);
-        } else {
-            if(mqttbridge !== null) {
-                if(_connectionOptions !== null) {
+            const pm2 = require('pm2');
+            pm2.connect(async function(err) {
+                console.log("Restarting Bridge");
+                pm2.restart('bridge',function(err,apps) {
+                });
+            });
+
+        } else if(topic == "corrently/mqtt/disconnect") {
+            fs.unlink("./runtime/bridge.json");
+            const pm2 = require('pm2');
+            pm2.connect(async function(err) {
+                console.log("Restarting Bridge");
+                pm2.restart('bridge',function(err,apps) {
+                });
+            });
+        } else if(mqttbridge !== null) {
+                if((_connectionOptions !== null) && (_connectionOptions.enabled !== 'false')) {
                     payload = payload.toString();
                     if (_connectionOptions.basePath.endsWith("#")) {
                         _connectionOptions.basePath = _connectionOptions.basePath.slice(0, -1);
@@ -40,7 +54,6 @@ mqttedge.on('connect', function () {
                     mqttbridge.publish(topic, payload);
                 }
             }
-        } 
     });
     
     if(fs.existsSync("./runtime/bridge.json")) {

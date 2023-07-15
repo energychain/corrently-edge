@@ -32,13 +32,17 @@ mqttedge.on('connect', function () {
         }
         if(topic == "corrently/edge/nr-add-flow/set") {
             const edgeflow = JSON.parse(payload.toString());
-           
+            
             if(typeof edgeflow.modules !== 'undefined') {
                 for(let i=0;i<edgeflow.modules.length;i++) {
-                    await axios.post("http://localhost:1880/red/nodes",
-                    {
-                        "module":edgeflow.modules[i]
-                    });
+                    try {
+                        await axios.post("http://localhost:1880/red/nodes",
+                        {
+                            "module":edgeflow.modules[i]
+                        });
+                    } catch(e) {
+                        // Module Installation will fail if module already exists in package.json
+                    }
                 }
             }
 
@@ -65,22 +69,21 @@ mqttedge.on('connect', function () {
                     }
                 }
             }
-
-            console.log('Edge',{
-                "label": edgeflow.label,
-                "nodes": nnodes,
-                "configs": nconfigs
-            });
-
-            await axios.post("http://localhost:1880/red/flow",
-            {
-                "label": edgeflow.label,
-                "nodes": nnodes,
-                "configs": nconfigs
-            });
-
-             mqttedge.publish("corrently/edge/nr-add-flow/get","done");
-         } 
+            try {
+                await axios.post("http://localhost:1880/red/flow",
+                {
+                    "label": edgeflow.label,
+                    "nodes": nnodes,
+                    "configs": nconfigs
+                });
+                mqttedge.publish("corrently/edge/nr-add-flow/get","done");
+            } catch(e) {
+                if(e.response.data.message == 'duplicate id') {
+                    // We might fix this using new IDs 
+                }
+                console.log(e.response.data);
+            }
+        }
         if(topic == "corrently/edge/services/retrieve") {
             const pm2 = require('pm2');
             pm2.connect(async function(err) {
@@ -104,5 +107,4 @@ mqttedge.on('connect', function () {
             });
         } 
     });
-    
 });
