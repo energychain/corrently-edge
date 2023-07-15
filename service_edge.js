@@ -14,6 +14,18 @@ mqttedge.on('connect', function () {
 
     })
     mqttedge.on('message', async (topic, payload) => {
+        if(topic == "corrently/edge/topics/set") {
+            fs.writeFileSync("./runtime/topics.json",payload);
+        }
+        if(topic == "corrently/edge/topics/get") {
+            if(fs.existsSync("./runtime/topics.json")) {
+                const topics = fs.readFileSync("./runtime/topics.json");
+                if(topics !== payload) {
+                    mqttedge.publish("corrently/edge/topics/result",""+topics);
+                }
+            }
+        }
+
         if(topic == "corrently/edge/nodered/retrieve") {
             let data = await axios.get(" http://localhost:1880/red/diagnostics");
             mqttedge.publish("corrently/edge/nodered/result",JSON.stringify(data.data));
