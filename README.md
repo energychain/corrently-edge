@@ -1,10 +1,18 @@
 # corrently-edge
-Edge Server for small systems (like RPi)
+- "Always On" solution for the integration and control of smart home devices
+- Simplifies communication between different devices regardless of manufacturer or protocol
+- Central hub for data retrieval and presentation in a unified format
+- Network relief through reduced constant device communication
+- Graphical editor for expanding the functionality of smart home devices
+- Suitable for residential and commercial applications
 
-- starts local mqtt broker
-- activates edge middleware for corrently-current
-- fires up web ui (corrently-current) with preconfigured data-source on edge.
-- setup for edge to cloud connectivity
+## corrently-edge with [corrently-current](https://github.com/energychain/corrently-current)
+- Seamless integration of smart home devices through Corrently Edge
+- Easy display and monitoring of device data with Corrently Current
+- Reduced complexity of integration and control
+- Efficient utilization of network resources through central data retrieval
+- Graphical editor for individual customization and expansion of functionality
+- Suitable for residential and commercial applications
 
 ## Audience
 
