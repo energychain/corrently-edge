@@ -69,12 +69,12 @@ const app = async function() {
                     script: './corrently-current/main.js',
                     name:'middleware'
                 });
-                /*
+                
                 await startService ({
                     script: 'service_edge.js',
                     name:'edgemanager'
                 });
-                */
+                
                 console.log("Disconnect");
                 pm2.disconnect();
                 process.exit(0);
