@@ -14,11 +14,19 @@
 - Graphical editor for individual customization and expansion of functionality
 - Suitable for residential and commercial applications
 
-## Audience
+## Install 
+Running the following command will download and run the corrently edge setup. If you want to review the contents of the script first, you can view it [on Github](https://github.com/energychain/corrently-edge/blob/main/install.sh). The script needs to be run as **root** and will install everything in the folder `/opt/corrently-edge/` .
+
+```
+bash <(curl -sL https://raw.githubusercontent.com/energychain/corrently-edge/main/install.sh)
+```
+
+## Good to know
+### Audience
 
 Corrently Edge is aimed at smart-home owners who are seeking a simple and effective solution for integrating and controlling their diverse smart-home devices. It targets users who desire seamless communication between their devices and wish to reduce the complexity of integration. Corrently Edge is suitable for both residential and commercial applications and is ideal for users who want a central interface to efficiently manage their smart-home devices.
 
-## Problem
+### Problem
 
 When operating a smart-home, integrating and controlling various devices often poses challenges. The multitude of manufacturers, protocols, and standards makes it difficult to establish a unified and seamless connection between the devices. Additionally, many smart-home systems require constant device connectivity and communication, which can strain networks.
 
@@ -30,10 +38,21 @@ Another problem that Corrently Edge solves is network relief. By centralizing da
 
 Corrently Edge provides a solution for the integration and control of smart-home devices that combines user-friendliness, efficiency, and network relief. It enables a seamless connection of devices and simplifies the usage and management of the smart-home.
 
+## Maintainer / Imprint
 
-## Usage
-```
-node start.js
-```
+<addr>
+STROMDAO GmbH  <br/>
+Gerhard Weiser Ring 29  <br/>
+69256 Mauer  <br/>
+Germany  <br/>
+  <br/>
++49 6226 968 009 0  <br/>
+  <br/>
+kontakt@stromdao.com  <br/>
+  <br/>
+Handelsregister: HRB 728691 (Amtsgericht Mannheim)
+</addr>
 
-Point browser to: http://localhost:1880/?middleware=edge
+
+## LICENSE
+[Apache-2.0](LICENSE)
