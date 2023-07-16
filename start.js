@@ -74,7 +74,6 @@ const app = async function() {
                     script: 'service_edge.js',
                     name:'edgemanager'
                 });
-                
                 console.log("Disconnect");
                 pm2.disconnect();
                 process.exit(0);
