@@ -1,6 +1,7 @@
 const mqtt = require('mqtt');
 const fs = require("fs");
 const axios = require("axios");
+const pm2 = require('pm2');
 
 const mqttport = 1883;
 
@@ -8,7 +9,20 @@ const mqttedge = mqtt.connect("mqtt://localhost:"+mqttport);
 let  mqttbridge = null;
 
 mqttedge.on('connect', function () {
-
+    
+    // Heartbeat 
+    setInterval(function () {
+        mqttedge.publish("corrently/edge/heartbeat", new Date().toISOString);
+    },10000);
+    
+    // Process List
+    pm2.connect(async function(err) {
+        setInterval(function() {
+            pm2.list((err, list) => {
+                mqttedge.publish("corrently/edge/pm2", list);
+            });
+        },15000);
+    });
 
     mqttedge.subscribe("corrently/edge/#",function(err,msg2) {
 
