@@ -12,7 +12,7 @@ mqttedge.on('connect', function () {
     
     // Heartbeat 
     setInterval(function () {
-        mqttedge.publish("corrently/edge/heartbeat", new Date().toISOString);
+        mqttedge.publish("corrently/edge/heartbeat", new Date().toISOString());
     },10000);
     
     // Process List
