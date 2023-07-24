@@ -58,7 +58,7 @@ mqttedge.on('connect', function () {
     
     if(fs.existsSync("./runtime/bridge.json")) {
         _connectionOptions = JSON.parse(fs.readFileSync("./runtime/bridge.json"));
-        connectBridge(_connectionOptions);
+        connectBridge(_connectionOptions.payload);
     }
     
 });
