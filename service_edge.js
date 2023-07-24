@@ -19,7 +19,19 @@ mqttedge.on('connect', function () {
     pm2.connect(async function(err) {
         setInterval(function() {
             pm2.list((err, list) => {
-                mqttedge.publish("corrently/edge/pm2", list);
+                let msg = [];
+                for(let i=0;i<list.length;i++) {
+                    msg.push({
+                        pid:list[i].pid,
+                        name:list[i].name,
+                        cpu:list[i].monit.cpu,
+                        memory:list[i].monit.memory
+                    })
+                }
+                mqttedge.publish("corrently/edge/pm2", JSON.stringify({
+                    updated:new Date().toISOString(),
+                    ps:msg
+                }));
             });
         },15000);
     });
