@@ -5,6 +5,7 @@ const mqttport = 1883;
 
 const mqttedge = mqtt.connect("mqtt://localhost:"+mqttport);
 let  mqttbridge = null;
+let cache = {};
 
 mqttedge.on('connect', function () {
     let __connectionOptions = null;
@@ -47,18 +48,25 @@ mqttedge.on('connect', function () {
                     payload = payload.toString();
                     if (_connectionOptions.basePath.endsWith("#")) {
                         _connectionOptions.basePath = _connectionOptions.basePath.slice(0, -1);
-                      }
+                    }
                     if(typeof _connectionOptions.basePath !== 'undefined') {
                         topic = _connectionOptions.basePath + topic;
                     }
-                    mqttbridge.publish(topic, payload);
+                    // Throttle to 1 message per 10 seconds & topic
+                    if((typeof cache[topic] == 'undefined')||(cache[topic] < new Date().getTime() - 10000)) {
+                        cache[topic] = new Date().getTime();
+                        mqttbridge.publish(topic, payload);
+                    }                    
                 }
             }
     });
     
     if(fs.existsSync("./runtime/bridge.json")) {
         _connectionOptions = JSON.parse(fs.readFileSync("./runtime/bridge.json"));
-        connectBridge(_connectionOptions.payload);
+        if(typeof _connectionOptions.payload !== 'undefined') {
+            _connectionOptions = _connectionOptions.payload;
+        }
+        connectBridge(_connectionOptions);
     }
     
 });
