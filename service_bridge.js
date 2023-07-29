@@ -55,7 +55,7 @@ mqttedge.on('connect', function () {
                     // Throttle to 1 message per 10 seconds & topic
                     if((typeof cache[topic] == 'undefined')||(cache[topic] < new Date().getTime() - 10000)) {
                         cache[topic] = new Date().getTime();
-                        mqttbridge.publish(topic, payload);
+                        mqttbridge.publish(topic, payload,{retain:true});
                     }                    
                 }
             }
